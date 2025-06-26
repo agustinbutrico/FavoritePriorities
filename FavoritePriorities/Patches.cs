@@ -23,7 +23,7 @@ namespace FavoritePriorities
                 var clone = UnityEngine.Object.Instantiate(sampleBtn, prioritiesPanel) as GameObject;
                 clone.name = $"FavoriteBtn{i + 1}";
 
-                // Reposicionamiento igual que antes…
+                // Reposicionamiento
                 var rt = clone.GetComponent<RectTransform>();
                 rt.sizeDelta = sampleRt.sizeDelta;
                 rt.anchorMin = sampleRt.anchorMin;
@@ -73,9 +73,7 @@ namespace FavoritePriorities
                     __instance.SetStats(tower);
 
                     // 5) (Opcional) loguear para depurar
-                    Plugin.Instance.Logger.LogDebug(
-                      $"[FavoritePriorities] Preset {idx + 1} aplicado: " +
-                      string.Join(",", tower.priorities));
+                    Plugin.Log.LogDebug("[FavoritePriorities] Preset aplicado: " + string.Join(",", tower.priorities));
                 });
             }
         }

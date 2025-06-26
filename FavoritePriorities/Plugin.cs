@@ -10,6 +10,8 @@ namespace FavoritePriorities
     {
         // Instancia estática pública
         public static Plugin Instance { get; private set; }
+        // Log
+        public static BepInEx.Logging.ManualLogSource Log { get; private set; }
 
         // Array para guardar tus 5 presets
         private ConfigEntry<string>[] presets = new ConfigEntry<string>[5];
@@ -21,6 +23,7 @@ namespace FavoritePriorities
         {
             // 1. Guardar la referencia a esta instancia
             Instance = this;
+            Log = base.Logger;
 
             // 2. Valores por defecto personalizados para cada preset
             string[] defaultPresets = new string[]
