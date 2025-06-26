@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- NET Framework 4.7.2 -->
+		<TargetFramework>net472</TargetFramework>
+		<!-- Desactivamos las usings implícitas, no son típicas en un proyecto de librería de .NET Framework -->
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Referencia a BepInEx.dll -->
+		<Reference Include="Assembly-CSharp">
+			<HintPath>libs\Assembly-CSharp.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Assembly-CSharp-firstpass">
+			<HintPath>libs\Assembly-CSharp-firstpass.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="BepInEx">
+			<HintPath>libs\BepInEx.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<!-- Referencia a Harmony -->
+		<Reference Include="0Harmony">
+			<HintPath>libs\0Harmony.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>libs\UnityEngine.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<!-- Referencias de Unity -->
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>libs\UnityEngine.CoreModule.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UI">
+			<HintPath>libs\UnityEngine.UI.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+
+</Project>
