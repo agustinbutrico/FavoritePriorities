@@ -11,33 +11,68 @@ namespace FavoritePriorities
     {
         static void Postfix(TowerUI __instance)
         {
+            // 1) Obtener el canvas
             var canvas = __instance.transform.Find("Canvas");
-            var prioritiesPanel = canvas.Find("PrioritiesPanel");
 
-            // Botón de ejemplo para clonar (el de Health)
+            // 2) Crear (o reutilizar) un panel propio para favoritos
+            var favPanelTransform = canvas.Find("FavoritePrioritiesPanel");
+            if (favPanelTransform == null)
+            {
+                // Clonar el panel de ejemplo (RightPanel) para mantener el estilo
+                var template = canvas.Find("RightPanel");
+                if (template == null)
+                {
+                    Plugin.Log.LogError("[FavoritePriorities] No se encontró RightPanel para clonar.");
+                    return;
+                }
+
+                var favPanel = UnityEngine.Object.Instantiate(template.gameObject, canvas) as GameObject;
+                favPanel.name = "FavoritePrioritiesPanel";
+                favPanelTransform = favPanel.transform;
+
+                // Posicionar anclado a la izquierda
+                var favRt = favPanel.GetComponent<RectTransform>();
+                favRt.anchorMin = new Vector2(0, 0.5f);
+                favRt.anchorMax = new Vector2(0, 0.5f);
+                favRt.pivot = new Vector2(0, 0.5f);
+                favRt.anchoredPosition = new Vector2(50, 0);
+
+                // Fondo amarillo semitransparente
+                var img = favPanel.GetComponent<Image>();
+                if (img != null)
+                    img.color = new Color(1f, 1f, 0f, 0.5f);
+
+                // Añadir layout automático con alineación fully qualified
+                var layout = favPanel.AddComponent<HorizontalLayoutGroup>();
+                layout.padding = new RectOffset(5, 5, 5, 5);
+                layout.spacing = 10;
+                layout.childAlignment = UnityEngine.TextAnchor.MiddleCenter;
+            }
+
+            // 3) Botón de ejemplo para clonar (HealthButton)
             var sampleBtn = canvas.Find("RightPanel/HealthButton").gameObject;
             var sampleRt = sampleBtn.GetComponent<RectTransform>();
 
+            // 4) Instanciar los botones de presets dentro del panel de favoritos
             for (int i = 0; i < 5; i++)
             {
-                var clone = UnityEngine.Object.Instantiate(sampleBtn, prioritiesPanel) as GameObject;
+                var clone = UnityEngine.Object.Instantiate(sampleBtn, favPanelTransform) as GameObject;
                 clone.name = $"FavoriteBtn{i + 1}";
 
-                // Reposicionamiento
+                // Ajustar tamaño y pivote igual al botón original
                 var rt = clone.GetComponent<RectTransform>();
                 rt.sizeDelta = sampleRt.sizeDelta;
                 rt.anchorMin = sampleRt.anchorMin;
                 rt.anchorMax = sampleRt.anchorMax;
                 rt.pivot = sampleRt.pivot;
-                rt.anchoredPosition = sampleRt.anchoredPosition + new Vector2(-(sampleRt.sizeDelta.x + 10) * (i + 1), 0);
 
-                // Texto con saltos de línea tal cual
+                // Texto multilínea
                 var txt = clone.GetComponentInChildren<Text>();
                 txt.text = string.Join("\n", Plugin.Instance.Presets[i].Value.Split(','));
 
-                // Aquí viene lo importante:
+                // Callback al hacer click
                 var btn = clone.GetComponent<Button>();
-                int idx = i;  // captura para el callback
+                int idx = i;
                 btn.onClick.AddListener(() =>
                 {
                     // 1) Accedemos al Tower privado
@@ -48,35 +83,17 @@ namespace FavoritePriorities
                     var parts = Plugin.Instance.Presets[idx].Value.Split(',');
 
                     // 3) Aplicamos al array real de prioridades
-                    var s0 = parts.ElementAtOrDefault(0);
-                    if (!string.IsNullOrEmpty(s0)
-                        && Enum.TryParse<Tower.Priority>(s0, out var p0))
-                    {
-                        tower.priorities[0] = p0;
-                    }
-
-                    var s1 = parts.ElementAtOrDefault(1);
-                    if (!string.IsNullOrEmpty(s1)
-                        && Enum.TryParse<Tower.Priority>(s1, out var p1))
-                    {
-                        tower.priorities[1] = p1;
-                    }
-
-                    var s2 = parts.ElementAtOrDefault(2);
-                    if (!string.IsNullOrEmpty(s2)
-                        && Enum.TryParse<Tower.Priority>(s2, out var p2))
-                    {
-                        tower.priorities[2] = p2;
-                    }
+                    if (parts.Length > 0 && Enum.TryParse(parts[0], out Tower.Priority p0)) tower.priorities[0] = p0;
+                    if (parts.Length > 1 && Enum.TryParse(parts[1], out Tower.Priority p1)) tower.priorities[1] = p1;
+                    if (parts.Length > 2 && Enum.TryParse(parts[2], out Tower.Priority p2)) tower.priorities[2] = p2;
 
                     // 4) Refrescamos la UI para que se vean y apliquen de verdad
                     __instance.SetStats(tower);
 
                     // 5) (Opcional) loguear para depurar
-                    Plugin.Log.LogDebug("[FavoritePriorities] Preset aplicado: " + string.Join(",", tower.priorities));
+                    Plugin.Log.LogDebug($"[FavoritePriorities] Preset aplicado: {string.Join(",", tower.priorities)}");
                 });
             }
         }
     }
-
 }
