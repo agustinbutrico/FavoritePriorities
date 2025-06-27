@@ -33,15 +33,15 @@ You can also toggle these quick-set buttons with a key press, making it faster t
 
 ## Default Key binds:
 
-    PriorityKey1 = Alpha6
+    PriorityKey1 = Alpha6 (key 6)
 
-    PriorityKey2 = Alpha7
+    PriorityKey2 = Alpha7 (key 7)
 
-    PriorityKey3 = Alpha8
+    PriorityKey3 = Alpha8 (key 8)
 
-    PriorityKey4 = Alpha9
+    PriorityKey4 = Alpha9 (key 9)
 
-    PriorityKey5 = Alpha0
+    PriorityKey5 = Alpha0 (key 0)
 
     TogglePanelKey = Tab
 
