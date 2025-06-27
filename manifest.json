@@ -1,0 +1,9 @@
+{
+    "name": "FavoritePriorities",
+    "version_number": "1.0.1",
+    "website_url": "https://github.com/agustinbutrico/FavoritePriorities",
+    "description": "Adds 5 quick-access priority buttons for Rogue Tower, letting you set priorities with one click.",
+    "dependencies": [
+        "bbepis-BepInEx_Rogue_Tower-5.4.1900"
+    ]
+}
