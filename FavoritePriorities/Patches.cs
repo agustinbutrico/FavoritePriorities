@@ -36,8 +36,8 @@ namespace FavoritePriorities
                 favRt.anchorMin = new Vector2(0, 0.5f);
                 favRt.anchorMax = new Vector2(0, 0.5f);
                 favRt.pivot = new Vector2(0, 0.5f);
-                favRt.localPosition = new Vector3(-9.4f, 0.2f, 0);
-                favRt.sizeDelta = new Vector2(300, favRt.sizeDelta.y); // más ancho
+                favRt.localPosition = new Vector3(-11.3f, 1.25f, 0);
+                favRt.sizeDelta = new Vector2(6f, 7.5f);
                 favRt.localScale = Vector3.one;
 
                 var img = favPanel.GetComponent<Image>();
@@ -45,8 +45,8 @@ namespace FavoritePriorities
                     img.color = new Color(1f, 1f, 0f, 0.5f);
 
                 var layout = favPanel.AddComponent<VerticalLayoutGroup>();
-                layout.padding = new RectOffset(1, 1, 1, 1); // casi sin padding
-                layout.spacing = 2; // separación mínima
+                layout.padding = new RectOffset(0, 0, 0, 0);
+                layout.spacing = 0.5f;
                 layout.childAlignment = TextAnchor.MiddleCenter;
 
                 favPanelTransform.SetAsLastSibling();
@@ -69,11 +69,11 @@ namespace FavoritePriorities
                 clone.name = $"FavoriteBtn{i + 1}";
 
                 var rt = clone.GetComponent<RectTransform>();
-                rt.sizeDelta = sampleRt.sizeDelta;
-                rt.anchorMin = sampleRt.anchorMin;
-                rt.anchorMax = sampleRt.anchorMax;
-                rt.pivot = sampleRt.pivot;
-                rt.localScale = sampleRt.localScale;
+                rt.sizeDelta = new Vector2(6f, 1.2f);
+                rt.anchorMin = new Vector2(0.5f, 0.5f);
+                rt.anchorMax = new Vector2(0.5f, 0.5f);
+                rt.pivot = new Vector2(0.5f, 0.5f);
+                rt.localScale = Vector3.one;
                 rt.localPosition = Vector3.zero;
 
                 var img = clone.GetComponent<Image>();
@@ -83,17 +83,9 @@ namespace FavoritePriorities
 
                 var btn = clone.GetComponent<Button>();
                 btn.colors = sampleColors;
-
-                var txt = clone.GetComponentInChildren<Text>();
-                txt.text = Plugin.Instance.Presets[i].Value.Replace(",", ", ");
-                txt.font = sampleText.font;
-                txt.fontSize = sampleText.fontSize;
-                txt.color = sampleText.color;
-                txt.alignment = sampleText.alignment;
-                txt.resizeTextForBestFit = sampleText.resizeTextForBestFit;
+                btn.onClick.RemoveAllListeners(); // Muy importante
 
                 int idx = i;
-                btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() =>
                 {
                     var towerField = AccessTools.Field(typeof(TowerUI), "myTower");
@@ -106,6 +98,15 @@ namespace FavoritePriorities
 
                     __instance.SetStats(tower);
                 });
+
+                var txt = clone.GetComponentInChildren<Text>();
+                txt.text = Plugin.Instance.Presets[i].Value.Replace(",", ", ");
+                txt.font = sampleText.font;
+                txt.resizeTextForBestFit = true;
+                txt.resizeTextMinSize = 8;
+                txt.resizeTextMaxSize = 50;
+                txt.color = sampleText.color;
+                txt.alignment = sampleText.alignment;
             }
         }
     }
