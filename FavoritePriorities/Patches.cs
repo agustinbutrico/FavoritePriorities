@@ -37,7 +37,7 @@ namespace FavoritePriorities
                 favRt.anchorMin = new Vector2(0, 0.5f);
                 favRt.anchorMax = new Vector2(0, 0.5f);
                 favRt.pivot = new Vector2(1, 1);
-                favRt.localPosition = new Vector3(-6.1f, 1.35f, 0);
+                favRt.localPosition = new Vector3(-0.8f, -3.75f, 0);
                 favRt.sizeDelta = new Vector2(5f, 3f); // tamaño más razonable
                 favRt.localScale = Vector3.one;
 
@@ -101,18 +101,44 @@ namespace FavoritePriorities
 
                 // Asignar funcionalidad real
                 int idx = i;
-                newBtn.onClick.AddListener(() =>
+                newBtn.onClick.AddListener(() => ApplyPreset(__instance, idx));
+            }
+            __instance.StartCoroutine(HandleShortcutsAndToggle(__instance, favPanel));
+        }
+
+        private static void ApplyPreset(TowerUI ui, int idx)
+        {
+            var towerField = AccessTools.Field(typeof(TowerUI), "myTower");
+            var tower = (Tower)towerField.GetValue(ui);
+            var parts = Plugin.Instance.Presets[idx].Value.Split(',');
+
+            if (parts.Length > 0 && Enum.TryParse(parts[0], out Tower.Priority p0)) tower.priorities[0] = p0;
+            if (parts.Length > 1 && Enum.TryParse(parts[1], out Tower.Priority p1)) tower.priorities[1] = p1;
+            if (parts.Length > 2 && Enum.TryParse(parts[2], out Tower.Priority p2)) tower.priorities[2] = p2;
+
+            ui.SetStats(tower);
+        }
+
+        private static IEnumerator HandleShortcutsAndToggle(TowerUI ui, GameObject panel)
+        {
+            // Inicializar visibilidad según el estado global
+            panel.SetActive(Plugin.ShowFavoritePanel);
+
+            while (ui != null && ui.isActiveAndEnabled)
+            {
+                if (UnityEngine.Input.GetKeyDown(KeyCode.Tab))
                 {
-                    var towerField = AccessTools.Field(typeof(TowerUI), "myTower");
-                    var tower = (Tower)towerField.GetValue(__instance);
-                    var parts = Plugin.Instance.Presets[idx].Value.Split(',');
+                    Plugin.ShowFavoritePanel = !Plugin.ShowFavoritePanel;
+                    panel.SetActive(Plugin.ShowFavoritePanel);
+                }
 
-                    if (parts.Length > 0 && Enum.TryParse(parts[0], out Tower.Priority p0)) tower.priorities[0] = p0;
-                    if (parts.Length > 1 && Enum.TryParse(parts[1], out Tower.Priority p1)) tower.priorities[1] = p1;
-                    if (parts.Length > 2 && Enum.TryParse(parts[2], out Tower.Priority p2)) tower.priorities[2] = p2;
+                if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha6)) ApplyPreset(ui, 0);
+                if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha7)) ApplyPreset(ui, 1);
+                if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha8)) ApplyPreset(ui, 2);
+                if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha9)) ApplyPreset(ui, 3);
+                if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha0)) ApplyPreset(ui, 4);
 
-                    __instance.SetStats(tower);
-                });
+                yield return null;
             }
         }
     }

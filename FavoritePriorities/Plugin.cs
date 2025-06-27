@@ -8,6 +8,9 @@ namespace FavoritePriorities
     [BepInPlugin("com.agustinbutrico.FavoritePriorities", "FavoritePriorities", "1.0.0")]
     public class Plugin : BaseUnityPlugin
     {
+        // Configuración para mostrar el panel de favoritos
+        public static bool ShowFavoritePanel = true;
+
         // Instancia estática pública
         public static Plugin Instance { get; private set; }
         // Log
