@@ -1,10 +1,11 @@
-## FavoritePriorities Mod for Rogue Tower
+# FavoritePriorities Mod for Rogue Tower
 
 FavoritePriorities is a mod that makes your life easier in Rogue Tower by allowing you to set up 5 quick-access buttons for priority combinations.
 
 No more manually selecting each of the three priorities every time. With this mod, you can set all three priorities with a single click.
 You can also toggle these quick-set buttons with a key press, making it faster to adjust your build strategy during runs.
-Installation
+
+## Installation
 
     Download the mod.
 
@@ -12,7 +13,7 @@ Installation
 
     Run the game.
 
-On first launch, the mod will automatically generate a configuration file where you can:
+## On first launch, the mod will automatically generate a configuration file where you can:
 
     Change the default priorities assigned to each button.
 
@@ -20,7 +21,7 @@ On first launch, the mod will automatically generate a configuration file where 
 
     Enable or disable the in-game quick priority menu.
 
-Default Key binds:
+## Default Key binds:
 
     Toggle menu: Tab
 
