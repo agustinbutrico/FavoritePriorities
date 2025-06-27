@@ -13,17 +13,25 @@ You can also toggle these quick-set buttons with a key press, making it faster t
 
     Run the game.
 
-## On first launch, the mod will automatically generate a configuration file where you can:
+## Configuration
 
-    Change the default priorities assigned to each button.
+    On first launch, the mod will automatically generate a configuration file on BepInEx/conf folder.
 
-    Modify the key bindings for quickly changing priorities.
+    Here you can modify the default priorities assigned to each button and all the key bindings.
 
-    Enable or disable the in-game quick priority menu.
+## Default Priorities:
+
+    Priority1 = NearDeath,MostHealth,Progress
+    
+    Priority2 = MostArmor,LeastShield,Slowest
+    
+    Priority3 = Fastest,MostArmor,LeastShield
+    
+    Priority4 = Fastest,MostShield,Progress
+    
+    Priority5 = MostHealth,MostArmor,MostShield
 
 ## Default Key binds:
-
-    Toggle menu: Tab
 
     Priority button 1: Alpha6
 
@@ -34,6 +42,8 @@ You can also toggle these quick-set buttons with a key press, making it faster t
     Priority button 4: Alpha9
 
     Priority button 5: Alpha0
+
+    Toggle menu: Tab
 
 ## Preview
 
