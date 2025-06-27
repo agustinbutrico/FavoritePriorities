@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 namespace FavoritePriorities
 {
@@ -42,7 +43,7 @@ namespace FavoritePriorities
 
                 var img = favPanel.GetComponent<Image>();
                 if (img != null)
-                    img.color = new Color(1f, 1f, 0.7f, 1f);
+                    img.color = new Color(1f, 1f, 0.7f, 0f);
 
                 var layout = favPanel.AddComponent<VerticalLayoutGroup>();
                 layout.padding = new RectOffset(0, 0, 0, 0); // Sin padding
