@@ -5,31 +5,32 @@ using UnityEngine;
 
 namespace FavoritePriorities
 {
-    [BepInPlugin("com.agustinbutrico.FavoritePriorities", "FavoritePriorities", "1.0.0")]
+    [BepInPlugin("AgusBut.FavoritePriorities", "FavoritePriorities", "1.0.0")]
     public class Plugin : BaseUnityPlugin
     {
-        // Configuración para mostrar el panel de favoritos
         public static bool ShowFavoritePanel = true;
-
-        // Instancia estática pública
         public static Plugin Instance { get; private set; }
-        // Log
         public static BepInEx.Logging.ManualLogSource Log { get; private set; }
 
-        // Array para guardar tus 5 presets
-        private ConfigEntry<string>[] presets = new ConfigEntry<string>[5];
+        // Array para guardar tus 5 prioridades
+        private ConfigEntry<string>[] priorities = new ConfigEntry<string>[5];
+        public ConfigEntry<string>[] Priorities => priorities;
 
-        // Exponemos los presets mediante una propiedad de sólo lectura
-        public ConfigEntry<string>[] Presets => presets;
+        // Keybinds configurables para cada prioridad
+        private ConfigEntry<KeyCode>[] priorityKeybinds = new ConfigEntry<KeyCode>[5];
+        public ConfigEntry<KeyCode>[] PriorityKeybinds => priorityKeybinds;
+
+        // Keybind configurable para mostrar/ocultar el panel
+        private ConfigEntry<KeyCode> togglePanelKey;
+        public ConfigEntry<KeyCode> TogglePanelKey => togglePanelKey;
 
         private void Awake()
         {
-            // 1. Guardar la referencia a esta instancia
             Instance = this;
             Log = base.Logger;
 
-            // 2. Valores por defecto personalizados para cada preset
-            string[] defaultPresets = new string[]
+            // Valores por defecto personalizados para cada prioridad
+            string[] defaultPriorities = new string[]
             {
                 "NearDeath,MostHealth,Progress",
                 "MostArmor,LeastShield,Slowest",
@@ -38,19 +39,47 @@ namespace FavoritePriorities
                 "MostHealth,MostArmor,MostShield"
             };
 
-            // 3. Registrar presets en el cfg usando los valores por defecto
-            for (int i = 0; i < presets.Length; i++)
+            // Configurar keybinds por defecto: 6-0
+            KeyCode[] defaultKeys = new KeyCode[]
             {
-                presets[i] = Config.Bind(
-                    section: "FavoritePriorities",                   // sección en el config
-                    key: $"Preset{i + 1}",                           // clave: Preset1 .. Preset5
-                    defaultValue: defaultPresets[i],                 // valor por defecto específico
-                    description: $"Combinación de prioridades para el botón {i + 1}" // descripción
+                KeyCode.Alpha6,
+                KeyCode.Alpha7,
+                KeyCode.Alpha8,
+                KeyCode.Alpha9,
+                KeyCode.Alpha0
+            };
+
+            for (int i = 0; i < priorities.Length; i++)
+            {
+                priorities[i] = Config.Bind(
+                    "FavoritePriorities",
+                    $"Priority{i + 1}",
+                    defaultPriorities[i],
+                    $"Priority combination for button {i + 1}\nAcceptable values: Progress, NearDeath, MostHealth, MostArmor, MostShield, LeastHealth, LeastArmor, LeastShield, Fastest, Slowest, Marked"
                 );
             }
 
-            // 4. Crear e instalar los parches Harmony
-            var harmony = new Harmony("com.agustinbutrico.FavoritePriorities");
+            // Registrar keybinds configurables
+            for (int i = 0; i < priorityKeybinds.Length; i++)
+            {
+                priorityKeybinds[i] = Config.Bind(
+                    "FavoritePriorities.Keybinds",
+                    $"PriorityKey{i + 1}",
+                    defaultKeys[i],
+                    $"Key to activate priority {i + 1}"
+                );
+            }
+
+            // Registrar keybind para mostrar/ocultar panel
+            togglePanelKey = Config.Bind(
+                "FavoritePriorities.Keybinds",
+                "TogglePanelKey",
+                KeyCode.Tab,
+                "Key to show/hide the priority panel"
+            );
+
+            // Crear e instalar los parches Harmony
+            var harmony = new Harmony("AgusBut.FavoritePriorities");
             harmony.PatchAll();
 
             Logger.LogInfo("FavoritePriorities cargado correctamente.");

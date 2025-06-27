@@ -90,7 +90,7 @@ namespace FavoritePriorities
 
                 // Configurar texto
                 var txt = clone.GetComponentInChildren<Text>();
-                txt.text = Plugin.Instance.Presets[i].Value.Replace(",", ", ");
+                txt.text = Plugin.Instance.Priorities[i].Value.Replace(",", ", ");
                 txt.font = sampleText.font;
                 txt.fontSize = sampleText.fontSize;
                 txt.color = sampleText.color;
@@ -110,7 +110,7 @@ namespace FavoritePriorities
         {
             var towerField = AccessTools.Field(typeof(TowerUI), "myTower");
             var tower = (Tower)towerField.GetValue(ui);
-            var parts = Plugin.Instance.Presets[idx].Value.Split(',');
+            var parts = Plugin.Instance.Priorities[idx].Value.Split(',');
 
             if (parts.Length > 0 && Enum.TryParse(parts[0], out Tower.Priority p0)) tower.priorities[0] = p0;
             if (parts.Length > 1 && Enum.TryParse(parts[1], out Tower.Priority p1)) tower.priorities[1] = p1;
@@ -126,17 +126,21 @@ namespace FavoritePriorities
 
             while (ui != null && ui.isActiveAndEnabled)
             {
-                if (UnityEngine.Input.GetKeyDown(KeyCode.Tab))
+                // Toggle panel con tecla configurable
+                if (UnityEngine.Input.GetKeyDown(Plugin.Instance.TogglePanelKey.Value))
                 {
                     Plugin.ShowFavoritePanel = !Plugin.ShowFavoritePanel;
                     panel.SetActive(Plugin.ShowFavoritePanel);
                 }
 
-                if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha6)) ApplyPreset(ui, 0);
-                if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha7)) ApplyPreset(ui, 1);
-                if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha8)) ApplyPreset(ui, 2);
-                if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha9)) ApplyPreset(ui, 3);
-                if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha0)) ApplyPreset(ui, 4);
+                // Usar keybinds configurables para cada prioridad
+                for (int i = 0; i < Plugin.Instance.PriorityKeybinds.Length; i++)
+                {
+                    if (UnityEngine.Input.GetKeyDown(Plugin.Instance.PriorityKeybinds[i].Value))
+                    {
+                        ApplyPreset(ui, i);
+                    }
+                }
 
                 yield return null;
             }
