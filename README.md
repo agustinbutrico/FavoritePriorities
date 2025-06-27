@@ -1,4 +1,4 @@
-FavoritePriorities Mod for Rogue Tower
+## FavoritePriorities Mod for Rogue Tower
 
 FavoritePriorities is a mod that makes your life easier in Rogue Tower by allowing you to set up 5 quick-access buttons for priority combinations.
 
