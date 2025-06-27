@@ -19,3 +19,7 @@ On first launch, the mod will automatically generate a configuration file where 
     Modify the key bindings for quickly changing priorities.
 
     Enable or disable the in-game quick priority menu.
+
+## Preview
+
+![FavoritePriorities Mod Preview](media/Showcase.png)
