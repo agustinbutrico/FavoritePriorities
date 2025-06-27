@@ -1,66 +1,21 @@
-Gerarquia original
+FavoritePriorities Mod for Rogue Tower
 
-- **TowerUI(Clone)**
-  - **Canvas/**
-    - **CenterPanel/**
-      - `LevelText`
-    - **LeftPanel/**
-      - `DamageText`
-      - `HealthText`
-      - `Armor`
-      - `Shield`
-    - **RightPanel/**
-      - **HealthXPBar/**
-        - `HealthFill`
-      - **ArmorXPBar/**
-        - `ArmorFill`
-      - **ShieldXPBar/**
-        - `ShieldFill`
-      - `HealXP`
-      - `ArmorXP`
-      - `ShieldXP`
-      - `CostText`
-      - **HealthButton/**
-        - `Text`
-      - **ArmorButton/**
-        - `Text`
-      - **ShieldButton/**
-        - `Text`
-      - `UpgradeTitle`
-    - **PrioritiesPanel/**
-      - `PrioritiesTitleText`
-      - `P1Text`
-      - **toggle1R/**
-        - `Text`
-      - **toggle1L/**
-        - `Text`
-      - `P2Text`
-      - **toggle1L (1)/**
-        - `Text`
-      - **toggle1R (1)/**
-        - `Text`
-      - `P3Text`
-      - **toggle1L (2)/**
-        - `Text`
-      - **toggle1R (2)/**
-        - `Text`
-      - **Copy/**
-        - `Text`
-      - **Paste/**
-        - `Text`
-    - **OnHitEffectsPanel/**
-      - `Slow`
-      - `Bleed`
-      - `Burn`
-      - `Poison`
-      - `FrostImg`
-      - `bleedimg`
-      - `burnimg`
-      - `poisonimg`
-      - `CritText`
-    - **Demolish Button/**
-      - `Text`
-    - **CenterInfo/**
-      - `Range`
-      - `RPM`
-      - `Mana use`
+FavoritePriorities is a mod that makes your life easier in Rogue Tower by allowing you to set up 5 quick-access buttons for priority combinations.
+
+No more manually selecting each of the three priorities every time. With this mod, you can set all three priorities with a single click.
+You can also toggle these quick-set buttons with a key press, making it faster to adjust your build strategy during runs.
+Installation
+
+    Download the mod.
+
+    Drag and drop the .dll file into your BepInEx/plugins folder.
+
+    Run the game.
+
+On first launch, the mod will automatically generate a configuration file where you can:
+
+    Change the default priorities assigned to each button.
+
+    Modify the key bindings for quickly changing priorities.
+
+    Enable or disable the in-game quick priority menu.
