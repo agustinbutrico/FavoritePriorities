@@ -47,4 +47,4 @@ You can also toggle these quick-set buttons with a key press, making it faster t
 
 ## Preview
 
-![FavoritePriorities Mod Preview](media/Preview.png)
+![FavoritePriorities Mod Preview](media/Preview.gif)
