@@ -35,18 +35,18 @@ namespace FavoritePriorities
                 var favRt = favPanel.GetComponent<RectTransform>();
                 favRt.anchorMin = new Vector2(0, 0.5f);
                 favRt.anchorMax = new Vector2(0, 0.5f);
-                favRt.pivot = new Vector2(0, 0.5f);
-                favRt.localPosition = new Vector3(-11.3f, 1.25f, 0);
-                favRt.sizeDelta = new Vector2(6f, 7.5f);
+                favRt.pivot = new Vector2(1, 1);
+                favRt.localPosition = new Vector3(-6.1f, 1.35f, 0);
+                favRt.sizeDelta = new Vector2(5f, 3f); // tamaño más razonable
                 favRt.localScale = Vector3.one;
 
                 var img = favPanel.GetComponent<Image>();
                 if (img != null)
-                    img.color = new Color(1f, 1f, 0f, 0.5f);
+                    img.color = new Color(1f, 1f, 0.7f, 1f);
 
                 var layout = favPanel.AddComponent<VerticalLayoutGroup>();
-                layout.padding = new RectOffset(0, 0, 0, 0);
-                layout.spacing = 0.5f;
+                layout.padding = new RectOffset(0, 0, 0, 0); // Sin padding
+                layout.spacing = 0.2f; // separación mínima real
                 layout.childAlignment = TextAnchor.MiddleCenter;
 
                 favPanelTransform.SetAsLastSibling();
@@ -58,7 +58,6 @@ namespace FavoritePriorities
             }
 
             var sampleBtn = canvas.Find("Demolish Button").gameObject;
-            var sampleRt = sampleBtn.GetComponent<RectTransform>();
             var sampleText = sampleBtn.GetComponentInChildren<Text>();
             var sampleImage = sampleBtn.GetComponent<Image>();
             var sampleColors = sampleBtn.GetComponent<Button>().colors;
@@ -68,25 +67,40 @@ namespace FavoritePriorities
                 var clone = UnityEngine.Object.Instantiate(sampleBtn, favPanelTransform);
                 clone.name = $"FavoriteBtn{i + 1}";
 
+                // Ajustar tamaño manual
                 var rt = clone.GetComponent<RectTransform>();
-                rt.sizeDelta = new Vector2(6f, 1.2f);
-                rt.anchorMin = new Vector2(0.5f, 0.5f);
-                rt.anchorMax = new Vector2(0.5f, 0.5f);
+                rt.sizeDelta = new Vector2(3.5f, 0.3f);
                 rt.pivot = new Vector2(0.5f, 0.5f);
                 rt.localScale = Vector3.one;
                 rt.localPosition = Vector3.zero;
 
+                // Reemplazar componente Button
+                var oldBtn = clone.GetComponent<Button>();
+                if (oldBtn != null) UnityEngine.Object.DestroyImmediate(oldBtn);
+                var newBtn = clone.AddComponent<Button>();
+                newBtn.colors = sampleColors;
+                newBtn.transition = Selectable.Transition.ColorTint;
+
+                // Mantener imagen
                 var img = clone.GetComponent<Image>();
                 img.sprite = sampleImage.sprite;
                 img.type = sampleImage.type;
                 img.color = sampleImage.color;
 
-                var btn = clone.GetComponent<Button>();
-                btn.colors = sampleColors;
-                btn.onClick.RemoveAllListeners(); // Muy importante
+                // Configurar texto
+                var txt = clone.GetComponentInChildren<Text>();
+                txt.text = Plugin.Instance.Presets[i].Value.Replace(",", ", ");
+                txt.font = sampleText.font;
+                txt.fontSize = sampleText.fontSize;
+                txt.color = sampleText.color;
+                txt.alignment = sampleText.alignment;
+                txt.resizeTextForBestFit = sampleText.resizeTextForBestFit;
+                txt.resizeTextMinSize = 6;
+                txt.resizeTextMaxSize = 24;
 
+                // Asignar funcionalidad real
                 int idx = i;
-                btn.onClick.AddListener(() =>
+                newBtn.onClick.AddListener(() =>
                 {
                     var towerField = AccessTools.Field(typeof(TowerUI), "myTower");
                     var tower = (Tower)towerField.GetValue(__instance);
@@ -98,15 +112,6 @@ namespace FavoritePriorities
 
                     __instance.SetStats(tower);
                 });
-
-                var txt = clone.GetComponentInChildren<Text>();
-                txt.text = Plugin.Instance.Presets[i].Value.Replace(",", ", ");
-                txt.font = sampleText.font;
-                txt.resizeTextForBestFit = true;
-                txt.resizeTextMinSize = 8;
-                txt.resizeTextMaxSize = 50;
-                txt.color = sampleText.color;
-                txt.alignment = sampleText.alignment;
             }
         }
     }
