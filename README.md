@@ -20,7 +20,7 @@ On first launch, the mod will automatically generate a configuration file where 
 
     Enable or disable the in-game quick priority menu.
 
-Default Keys:
+Default Key binds:
 
     Toggle menu: Tab
 
