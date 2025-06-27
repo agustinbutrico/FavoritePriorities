@@ -36,4 +36,4 @@ Default Key binds:
 
 ## Preview
 
-![FavoritePriorities Mod Preview](media/Showcase.png)
+![FavoritePriorities Mod Preview](media/Preview.png)
