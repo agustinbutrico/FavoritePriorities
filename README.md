@@ -20,6 +20,20 @@ On first launch, the mod will automatically generate a configuration file where 
 
     Enable or disable the in-game quick priority menu.
 
+Default Keys:
+
+    Toggle menu: Tab
+
+    Priority button 1: Alpha6
+
+    Priority button 2: Alpha7
+
+    Priority button 3: Alpha8
+
+    Priority button 4: Alpha9
+
+    Priority button 5: Alpha0
+
 ## Preview
 
 ![FavoritePriorities Mod Preview](media/Showcase.png)
