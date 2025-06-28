@@ -11,8 +11,6 @@ namespace FavoritePriorities
     {
         static void Postfix(TowerUI __instance)
         {
-            Plugin.Log.LogDebug("[FavoritePriorities] Postfix TowerUI.Start iniciado");
-
             var canvas = __instance.transform.Find("Canvas");
             var favPanelTransform = canvas.Find("FavoritePrioritiesPanel");
             GameObject favPanel;
@@ -116,7 +114,10 @@ namespace FavoritePriorities
             if (parts.Length > 1 && Enum.TryParse(parts[1], out Tower.Priority p1)) tower.priorities[1] = p1;
             if (parts.Length > 2 && Enum.TryParse(parts[2], out Tower.Priority p2)) tower.priorities[2] = p2;
 
-            ui.SetStats(tower);
+            tower.CopyPriorities();
+            tower.PastePriorities();
+
+            ui.SetStats(tower);    // Update the UI to reflect the changes
         }
 
         private static IEnumerator HandleShortcutsAndToggle(TowerUI ui, GameObject panel)

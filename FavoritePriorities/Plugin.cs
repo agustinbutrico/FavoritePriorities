@@ -1,4 +1,5 @@
-﻿using BepInEx;
+﻿using System;
+using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
 using UnityEngine;
@@ -82,7 +83,7 @@ namespace FavoritePriorities
             var harmony = new Harmony("AgusBut.FavoritePriorities");
             harmony.PatchAll();
 
-            Logger.LogInfo("FavoritePriorities cargado correctamente.");
+            Logger.LogInfo("Loading [FavoritePriorities 1.0.5]");
         }
     }
 }

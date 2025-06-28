@@ -40,6 +40,10 @@
 			<HintPath>libs\UnityEngine.InputLegacyModule.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
+		<Reference Include="UnityEngine.PhysicsModule">
+			<HintPath>libs\UnityEngine.PhysicsModule.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
 		<Reference Include="UnityEngine.TextRenderingModule">
 		  <HintPath>libs\UnityEngine.TextRenderingModule.dll</HintPath>
 			<Private>false</Private>
