@@ -30,6 +30,8 @@ namespace FavoritePriorities
             Instance = this;
             Log = base.Logger;
 
+            Logger.LogInfo("Loading [FavoritePriorities 1.0.5]");
+
             // Valores por defecto personalizados para cada prioridad
             string[] defaultPriorities = new string[]
             {
@@ -82,8 +84,6 @@ namespace FavoritePriorities
             // Crear e instalar los parches Harmony
             var harmony = new Harmony("AgusBut.FavoritePriorities");
             harmony.PatchAll();
-
-            Logger.LogInfo("Loading [FavoritePriorities 1.0.5]");
         }
     }
 }
