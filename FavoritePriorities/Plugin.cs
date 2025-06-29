@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FavoritePriorities
 {
-    [BepInPlugin("AgusBut.FavoritePriorities", "FavoritePriorities", "1.0.0")]
+    [BepInPlugin("AgusBut.FavoritePriorities", "FavoritePriorities", "1.0.5")]
     public class Plugin : BaseUnityPlugin
     {
         public static bool ShowFavoritePanel = true;
