@@ -45,7 +45,7 @@
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="UnityEngine.TextRenderingModule">
-		  <HintPath>libs\UnityEngine.TextRenderingModule.dll</HintPath>
+			<HintPath>libs\UnityEngine.TextRenderingModule.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="UnityEngine.UI">
